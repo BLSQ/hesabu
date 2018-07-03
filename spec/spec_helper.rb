@@ -1,4 +1,12 @@
 require "bundler/setup"
+
+if ENV["DISABLE_SIMPLECOV"] != "true"
+  require "simplecov"
+  SimpleCov.start do
+    add_filter "/spec/"
+  end
+end
+
 require "hesabu"
 
 RSpec.configure do |config|
