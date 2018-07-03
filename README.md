@@ -1,4 +1,4 @@
-![Gem](https://img.shields.io/gem/v/hesabu.svg)
+[![Gem](https://img.shields.io/gem/v/hesabu.svg)](https://rubygems.org/gems/hesabu)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f2643a76ea031525ed1f/maintainability)](https://codeclimate.com/github/BLSQ/hesabu/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f2643a76ea031525ed1f/test_coverage)](https://codeclimate.com/github/BLSQ/hesabu/test_coverage)
 [![Build Status](https://travis-ci.org/BLSQ/hesabu.svg?branch=master)](https://travis-ci.org/BLSQ/hesabu)
