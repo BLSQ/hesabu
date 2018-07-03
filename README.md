@@ -7,6 +7,26 @@
 Hesabu : equation solver based on parslet.
 
 
+## deployment to rubygems.org
+
+one time setup
+
+```
+gem install gem-release
+curl -u rubygemaccount https://rubygems.org/api/v1/api_key.yaml > ~/.gem/credentials
+chmod 0600 ~/.gem/credentials
+
+```
+
+
+```
+gem bump
+gem build hesabu.gemspec
+gem push hesabu-x.x.x.gem
+
+```
+
+
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
