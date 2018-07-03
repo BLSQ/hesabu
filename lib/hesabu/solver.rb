@@ -57,5 +57,5 @@ module Hesabu
     def tsort_each_child(node, &block)
       @equations[node].dependencies.each(&block)
     end
-    end
+  end
 end
