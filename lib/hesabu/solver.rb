@@ -17,19 +17,12 @@ module Hesabu
 
     def add(name, raw_expression)
       expression = raw_expression
-      raw_expression_as_i = raw_expression.to_i
-      raw_expression_as_f = raw_expression.to_f
+      numeric = ::Hesabu::Types.as_numeric(raw_expression)
 
-      if raw_expression == raw_expression_as_i.to_s
+      if numeric
         @equations[name] = Equation.new(
           name,
-          FakeEvaluable.new(raw_expression_as_i),
-          EMPTY_DEPENDENCIES
-        )
-      elsif raw_expression == raw_expression_as_f.to_s
-        @equations[name] = Equation.new(
-          name,
-          FakeEvaluable.new(raw_expression_as_f),
+          FakeEvaluable.new(numeric),
           EMPTY_DEPENDENCIES
         )
       else

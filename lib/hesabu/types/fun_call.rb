@@ -30,7 +30,7 @@ module Hesabu
     class AvgFunction
       def call(args)
         values = args.map(&:eval)
-        values.inject(0.0) { |acc, elem| acc + elem } / values.size
+        values.inject(::Hesabu::Types.as_bigdecimal(0.0)) { |acc, elem| acc + elem } / ::Hesabu::Types.as_bigdecimal(values.size)
       end
     end
 
@@ -41,7 +41,7 @@ module Hesabu
           0
         else
           eval_num = args[0].eval
-          eval_num / eval_denom.to_f
+          eval_num / ::Hesabu::Types.as_bigdecimal(eval_denom)
         end
       end
     end

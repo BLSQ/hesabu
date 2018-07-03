@@ -1,4 +1,5 @@
 require "bundler/setup"
+require "byebug"
 
 if ENV["DISABLE_SIMPLECOV"] != "true"
   require "simplecov"

@@ -84,7 +84,7 @@ RSpec.describe Hesabu::Solver do
       ["if(bb = 4,1,4)", "bb" => 4, "result" => 1],
       ["if (bb == 5,1,4)", "bb" => 4, "result" => 4],
       ["if(bb == 4,1,4)", "bb" => 4, "result" => 1],
-      ["avg(1,2,5)", "bb" => 4, "result" => 2.6666666666666665],
+      ["avg(1,2,5)", "bb" => 4, "result" => ::Hesabu::Types.as_bigdecimal("0.2666666666666666667e1")],
       ["min( 1.0 ,2,5)", "bb" => 4, "result" => 1.0],
       ["max(1,2, 5 )", "bb" => 4, "result" => 5],
       ["safe_div(1, 4 )", "bb" => 4, "result" => 0.25],
