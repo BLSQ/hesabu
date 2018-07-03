@@ -7,6 +7,35 @@
 
 Hesabu : equation solver based on parslet.
 
+## sample usage 
+```ruby
+    solver = Hesabu::Solver.new
+    solver.add("c", "a + b")
+    solver.add("a", "10")
+    solver.add("b", "10 + a")
+    
+    solution = solver.solve!
+    
+    expect(solution).to eq("a" => 10, "b" => 20, "c" => 30)
+```
+
+The solver will deduce the correct order and find the values of a,b and c.
+
+The expressions can be more complex (excel like), see the supported functions [here](https://github.com/BLSQ/hesabu/blob/master/lib/hesabu/types/fun_call.rb#L87)
+
+Currently the solver is case sensitive (except function names)
+
+Nb: Hesabu is swahili word for arithemtic.
+
+## Technical background
+
+* https://tomassetti.me/guide-parsing-algorithms-terminology/
+* https://github.com/PhilippeSigaud/Pegged/wiki/PEG-Basics
+* https://github.com/kschiess/parslet
+
+## Alternatives
+
+* https://github.com/rubysolo/dentaku more complete, currently less performant.
 
 ## deployment to rubygems.org
 
