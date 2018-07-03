@@ -67,6 +67,22 @@ module Hesabu
       end
     end
 
+    class AbsFunction
+      def call(args)
+        raise "expected args #{self.class.name} : #{args}" if args.size != 1
+        args.first.eval.abs
+      end
+    end
+
+    class AccessFunction
+      def call(args)
+        values = args.map(&:eval)
+        array = values[0..-2]
+        index = values[-1]
+        array[index]
+      end
+    end
+
     FUNCTIONS = {
       "if"          => IfFunction.new,
       "sum"         => SumFunction.new,
@@ -75,7 +91,9 @@ module Hesabu
       "max"         => MaxFunction.new,
       "safe_div"    => SafeDivFunction.new,
       "randbetween" => RandbetweenFunction.new,
-      "score_table" => ScoreTableFunction.new
+      "score_table" => ScoreTableFunction.new,
+      "abs"         => AbsFunction.new,
+      "access"         => AccessFunction.new,
     }.freeze
 
     FunCall = Struct.new(:name, :args) do

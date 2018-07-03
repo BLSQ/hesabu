@@ -63,6 +63,11 @@ RSpec.describe Hesabu::Solver do
       ["2<= 2 ", "bb" => 4, "result" => true],
       ["2>= 2 ", "bb" => 4, "result" => true],
       ["2>= 1.5 ", "bb" => 4, "result" => true],
+      ["abs(1)", "bb" => 4, "result" => 1],
+      ["abs(-1)", "bb" => 4, "result" => 1],
+      ["abs(-5.5)", "bb" => 4, "result" => 5.5],
+      ["abs(17.5)", "bb" => 4, "result" => 17.5],
+      ["abs(0)", "bb" => 4, "result" => 0],
       ["SUM(1,1.5,3) ", "bb" => 4, "result" => 5.5],
       ["SUM(bb,cc+1.5 + 3)", "bb" => 4, "cc" => 0, "result" => 8.5],
       ["SUM(bb,cc + 1.5+3)", "bb" => 4, "cc" => 0, "result" => 8.5],
@@ -89,8 +94,9 @@ RSpec.describe Hesabu::Solver do
       ["score_Table(2, 0,2,30 , 2,4,50, 4,6, 70 )", "bb" => 4, "result" => 50],
       ["score_Table(3, 0,2,30 , 2,4,50, 4,6, 70 )", "bb" => 4, "result" => 50],
       ["score_Table(4, 0,2,30 , 2,4,50, 4,6, 70 )", "bb" => 4, "result" => 70],
-      ["score_Table(5, 0,2,30 , 2,4,50, 4,6, 70 )", "bb" => 4, "result" => 70]
-
+      ["score_Table(5, 0,2,30 , 2,4,50, 4,6, 70 )", "bb" => 4, "result" => 70],
+      ["access( 1,2,3,4, 0)", "bb" => 4, "result" => 1],
+      ["access( 1,2,3,4, 3)", "bb" => 4, "result" => 4]
     ].freeze
 
     TESTS.each do |test|
