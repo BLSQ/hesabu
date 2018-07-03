@@ -17,14 +17,23 @@ module Hesabu
 
     def add(name, raw_expression)
       expression = raw_expression
-      if expression.is_a?(Numeric)
+      raw_expression_as_i = raw_expression.to_i
+      raw_expression_as_f = raw_expression.to_f
+
+      if raw_expression == raw_expression_as_i.to_s
         @equations[name] = Equation.new(
           name,
-          FakeEvaluable.new(raw_expression),
+          FakeEvaluable.new(raw_expression_as_i),
+          EMPTY_DEPENDENCIES
+        )
+      elsif raw_expression == raw_expression_as_f.to_s
+        @equations[name] = Equation.new(
+          name,
+          FakeEvaluable.new(raw_expression_as_f),
           EMPTY_DEPENDENCIES
         )
       else
-        expression = raw_expression.gsub(/\r\n?/, '')
+        expression = raw_expression.gsub(/\r\n?/, "")
         ast_tree = begin
           @parser.parse(expression)
         rescue Parslet::ParseFailed => e
