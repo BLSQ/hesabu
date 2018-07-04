@@ -25,7 +25,7 @@ RSpec.describe Hesabu::Solver do
     solver.add("c", "3")
     solver.add("d", "12")
     solver.add("e", "IF(a > 5 AND b=0, c * d, 0.0)")
-    expect(solver.solve!).to eq("a" => 1, "b" => 2, "c" => true)
+    expect(solver.solve!).to eq("a" => 7, "b" => 0, "c" => 3, "d" => 12, "e" => 36)
   end
 
 
