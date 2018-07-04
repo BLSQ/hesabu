@@ -1,13 +1,23 @@
 module Hesabu
-  class Interpreter < Parslet::Transform
-    rule(left:  simple(:left),
-         right: simple(:right),
-         op:    simple(:op)) do
-      Hesabu::Types::Operation.new(left, op, right)
+
+  LeftOp = Struct.new(:operation, :right) {
+    def call(left)      
+      Types::Operation.new(left,operation, self.right).eval
     end
+  }
+
+  Seq    = Struct.new(:sequence) {
+    def eval
+      sequence.reduce { |accum, operation| operation.call(accum) }
+    end
+  }
+
+  class Interpreter < Parslet::Transform
+
     rule(plist: sequence(:arr)) { arr }
     rule(plist: "()") { [] }
-    rule(fcall: { name: simple(:name), varlist: sequence(:vars) }) do
+    rule(fcall: { name: simple(:name), varlist: sequence(:seq) }) do
+      byebug
       Hesabu::Types::FunCall.new(name, vars)
     end
     rule(identifier: simple(:id)) { id.to_s }
@@ -22,5 +32,11 @@ module Hesabu
 
     rule(integer: simple(:integer)) { Hesabu::Types::IntLit.new(integer) }
     rule(float: simple(:float)) { Hesabu::Types::FloatLit.new(float) }
+
+    rule(op: simple(:op), right: simple(:right)) { LeftOp.new(op, right) }
+    rule(sequence(:seq)) { Seq.new(seq) }
+    rule(left: simple(:left)) { 
+      left
+    }
   end
 end

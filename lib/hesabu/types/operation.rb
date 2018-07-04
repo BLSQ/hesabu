@@ -3,33 +3,35 @@ module Hesabu
     Operation = Struct.new(:left, :operator, :right) do
       def eval
         op = operator.str.strip
-
+        
+        leftval = left.respond_to?(:eval,false) ? left.eval : left
+        rightval = right.respond_to?(:eval,false) ? right.eval : right
         result = if op == "+"
-                   left.eval + right.eval
+          leftval + rightval
                  elsif op == "-"
-                   left.eval - right.eval
+                   leftval - rightval
                  elsif op == "*"
-                   left.eval * right.eval
+                   leftval * rightval
                  elsif op == "/"
-                   left.eval / right.eval
+                   leftval / rightval
                  elsif op == ">"
-                   left.eval > right.eval
+                   leftval > rightval
                  elsif op == "<"
-                   left.eval < right.eval
+                   leftval < rightval
                  elsif op == ">="
-                   left.eval >= right.eval
+                   leftval >= rightval
                  elsif op == "<="
-                   left.eval <= right.eval
+                   leftval <= rightval
                  elsif op == "=" || op == "=="
-                   left.eval == right.eval
+                   leftval == rightval
                  elsif op == "!="
-                   left.eval != right.eval
+                   leftval != rightval
                  elsif op == "AND"
-                   left.eval && right.eval
+                   leftval && rightval
                  else
                    raise "unsupported operand : #{operator} : #{left} #{operator} #{right}"
                  end
-        # puts "#{left.eval} #{op}  #{right.eval} => #{result}"
+        # puts "#{leftval} #{op}  #{right.eval} => #{result}"
         result
       end
     end

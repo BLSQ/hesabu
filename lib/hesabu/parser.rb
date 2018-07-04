@@ -34,7 +34,7 @@ module Hesabu
 
     # arithmetic
 
-    rule(:expression)         { sum | comparison | variable | pexpression }
+    rule(:expression)         { addition | comparison | variable | pexpression }
     rule(:pexpression)        { lparen >> expression >> rparen }
 
     rule(:variable)           { identifier.as(:variable) } # gets simplified into a value, an "identifier" does not
@@ -48,13 +48,14 @@ module Hesabu
       atom.as(:left) >> comparison_op.as(:op) >> atom.as(:right)
     end
 
-    rule(:sum) do
-      mul.as(:left) >>  sum_op.as(:op) >> sum.as(:right) | mul | comparison
-    end
-
-    rule(:mul) do
-      atom.as(:left) >> mul_op.as(:op) >> mul.as(:right)  | comparison | atom
-    end
+    rule(:addition) {
+      (multiplication.as(:left) >> (sum_op.as(:op) >> multiplication.as(:right)).repeat(1)) |
+      multiplication 
+    }
+    
+    rule(:multiplication) { 
+      atom.as(:left) >> (mul_op.as(:op) >> atom.as(:right)).repeat(1) |
+      atom }
 
     # lists
     rule(:varlist)    { expression >> (comma >> expression).repeat }
@@ -65,7 +66,9 @@ module Hesabu
 
     # root
     rule(:command) do
-      sum
+      addition |        comparison | 
+      atom
+
     end
     rule(:commands) { commands.repeat }
     root :command
