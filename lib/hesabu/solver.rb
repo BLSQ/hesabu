@@ -57,6 +57,11 @@ module Hesabu
       solution.each_with_object({}) do |kv, hash|
         hash[kv.first] = Hesabu::Types.as_numeric(kv.last) || kv.last
       end
+    rescue => e 
+      puts "Error during processing: #{$!}"
+      puts "Error : #{e.class} #{e.message}"
+      puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+      raise e
     end
 
     def tsort_each_node(&block)
