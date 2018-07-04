@@ -16,6 +16,10 @@ module Hesabu
       Hesabu::Types::IdentifierLit.new(d[:variable], d[:doc])
     end
 
+    rule(str: subtree(:str)) do
+      Hesabu::Types::StringLit.new(str.map { |char| char.values.first.str }.join)
+    end
+
     rule(integer: simple(:integer)) { Hesabu::Types::IntLit.new(integer) }
     rule(float: simple(:float)) { Hesabu::Types::FloatLit.new(float) }
   end

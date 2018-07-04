@@ -22,7 +22,7 @@ module Hesabu
       if numeric
         @equations[name] = Equation.new(
           name,
-          FakeEvaluable.new(numeric),
+          FakeEvaluable.new(::Hesabu::Types.as_bigdecimal(raw_expression)),
           EMPTY_DEPENDENCIES
         )
       else
@@ -45,11 +45,14 @@ module Hesabu
     def solve!
       solving_order.each do |name|
         equation = @equations[name]
+        raise "not evaluable #{equation.evaluable} #{equation}" unless equation.evaluable.respond_to?(:eval, false)
         @bindings[equation.name] = equation.evaluable.eval
       end
       solution = @bindings.dup
       @bindings.clear
-      solution
+      solution.each_with_object({}) do |kv, hash|
+        hash[kv.first] = Hesabu::Types.as_numeric(kv.last) ||kv.last
+      end
     end
 
     def tsort_each_node(&block)

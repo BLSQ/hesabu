@@ -1,6 +1,11 @@
 module Hesabu
   module Types
-    class IfFunction
+    class Function
+      def divide(num, denum)
+        num / denum
+      end
+    end
+    class IfFunction < Function
       def call(args)
         raise "expected args #{name} : #{args}" unless args.size != 2
         condition_expression = args[0]
@@ -9,14 +14,14 @@ module Hesabu
       end
     end
 
-    class SumFunction
+    class SumFunction < Function
       def call(args)
         values = args.map(&:eval)
         values.reduce(0, :+)
       end
     end
 
-    class ScoreTableFunction
+    class ScoreTableFunction < Function
       def call(args)
         values = args.map(&:eval)
         target = values.shift
@@ -27,21 +32,21 @@ module Hesabu
       end
     end
 
-    class AvgFunction
+    class AvgFunction < Function
       def call(args)
         values = args.map(&:eval)
-        values.inject(::Hesabu::Types.as_bigdecimal(0.0)) { |acc, elem| acc + elem } / ::Hesabu::Types.as_bigdecimal(values.size)
+        values.inject(0.0) { |acc, elem| acc + elem } / values.size
       end
     end
 
-    class SafeDivFunction
+    class SafeDivFunction < Function
       def call(args)
         eval_denom = args[1].eval
         if eval_denom == 0
           0
         else
           eval_num = args[0].eval
-          eval_num / ::Hesabu::Types.as_bigdecimal(eval_denom)
+          eval_denom.zero? ? 0 : (eval_num / eval_denom)
         end
       end
     end
@@ -83,6 +88,15 @@ module Hesabu
       end
     end
 
+    class RoundFunction
+      def call(args)
+        raise "expected args #{self.class.name} : #{args}" if args.size > 2 || args.empty?
+        values = args.map(&:eval)
+        decimals = args.size == 2 ? values[1] : 0
+        values.first.round(decimals)
+      end
+    end
+
     FUNCTIONS = {
       "if"          => IfFunction.new,
       "sum"         => SumFunction.new,
@@ -93,7 +107,8 @@ module Hesabu
       "randbetween" => RandbetweenFunction.new,
       "score_table" => ScoreTableFunction.new,
       "abs"         => AbsFunction.new,
-      "access"         => AccessFunction.new,
+      "access"      => AccessFunction.new,
+      "round"       => RoundFunction.new
     }.freeze
 
     FunCall = Struct.new(:name, :args) do
