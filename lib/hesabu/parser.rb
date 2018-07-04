@@ -42,7 +42,7 @@ module Hesabu
     rule(:mul_op)             { match("[*/]") >> space? }
     rule(:comparison_op)      { (str("<=") | str(">=") | str("==") | str("!=") | str("<") | str("=") | str(">") | str("AND")) >> space? }
 
-    rule(:atom) { string | pexpression | float | integer | fcall.as(:fcall) | variable }
+    rule(:atom) {  string | pexpression | float | integer | fcall.as(:fcall) | variable }
 
     rule(:comparison) do
       atom.as(:left) >> comparison_op.as(:op) >> atom.as(:right)
@@ -53,7 +53,7 @@ module Hesabu
     end
 
     rule(:mul) do
-      atom.as(:left) >> mul_op.as(:op) >> mul.as(:right) | comparison | atom
+      atom.as(:left) >> mul_op.as(:op) >> mul.as(:right)  | comparison | atom
     end
 
     # lists
@@ -61,8 +61,6 @@ module Hesabu
     rule(:pvarlist)   { (lparen >> varlist.repeat >> rparen).as(:plist) }
 
     # functions
-    rule(:fdef_keyword) { str("def ") >> space? }
-    rule(:fend_keyword) { str("endf") >> space? }
     rule(:fcall)        { identifier.as(:name) >> pvarlist.as(:varlist) }
 
     # root

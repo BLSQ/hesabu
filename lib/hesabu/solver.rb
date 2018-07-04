@@ -38,6 +38,10 @@ module Hesabu
           doc:             @bindings,
           var_identifiers: var_identifiers
         )
+        if ENV["HESABU_DEBUG"]
+          puts expression
+          puts JSON.pretty_generate(ast_tree)
+        end
         @equations[name] = Equation.new(name, interpretation, var_identifiers)
       end
     end
@@ -51,7 +55,7 @@ module Hesabu
       solution = @bindings.dup
       @bindings.clear
       solution.each_with_object({}) do |kv, hash|
-        hash[kv.first] = Hesabu::Types.as_numeric(kv.last) ||kv.last
+        hash[kv.first] = Hesabu::Types.as_numeric(kv.last) || kv.last
       end
     end
 
@@ -60,7 +64,9 @@ module Hesabu
     end
 
     def tsort_each_child(node, &block)
-      @equations[node].dependencies.each(&block)
+      equation = @equations[node]
+      raise "Unbound variable : #{node}" unless equation
+      equation.dependencies.each(&block)
     end
   end
 end

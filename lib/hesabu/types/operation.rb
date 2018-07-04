@@ -23,9 +23,9 @@ module Hesabu
                  elsif op == "=" || op == "=="
                    left.eval == right.eval
                  elsif op == "!="
-                  left.eval != right.eval    
+                   left.eval != right.eval
                  elsif op == "AND"
-                  left.eval && right.eval                                     
+                   left.eval && right.eval
                  else
                    raise "unsupported operand : #{operator} : #{left} #{operator} #{right}"
                  end
