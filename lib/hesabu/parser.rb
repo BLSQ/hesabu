@@ -66,8 +66,7 @@ module Hesabu
 
     # root
     rule(:command) do
-      addition |        comparison | 
-      atom
+      addition
 
     end
     rule(:commands) { commands.repeat }

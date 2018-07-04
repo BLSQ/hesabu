@@ -16,9 +16,8 @@ module Hesabu
 
     rule(plist: sequence(:arr)) { arr }
     rule(plist: "()") { [] }
-    rule(fcall: { name: simple(:name), varlist: sequence(:seq) }) do
-      byebug
-      Hesabu::Types::FunCall.new(name, vars)
+    rule(fcall: subtree(:fcall) ) do
+      Hesabu::Types::FunCall.new(fcall[:name], fcall[:varlist][:plist].sequence)
     end
     rule(identifier: simple(:id)) { id.to_s }
     rule(variable: simple(:variable)) do |d|
