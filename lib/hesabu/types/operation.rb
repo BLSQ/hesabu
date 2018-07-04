@@ -6,8 +6,9 @@ module Hesabu
         
         leftval = left.respond_to?(:eval,false) ? left.eval : left
         rightval = right.respond_to?(:eval,false) ? right.eval : right
+        #puts "Operation : #{leftval} #{op} #{rightval}"
         result = if op == "+"
-          leftval + rightval
+                   leftval + rightval
                  elsif op == "-"
                    leftval - rightval
                  elsif op == "*"

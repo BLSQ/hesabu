@@ -163,6 +163,8 @@ RSpec.describe Hesabu::Solver do
       end
     end
 
+
+  describe "support various equations" do
     testing_precedence= [
       ["1+2*3/2","1+((2*3)/2)" , "result" => (1 + 2*3/2)],
       ["-3+1.5*2+5-2*2", "-3+(1.5*2)+5-(2*2)",  "result" => (-3 + 1.5*2 + 5 - 2*2)],
@@ -179,10 +181,11 @@ RSpec.describe Hesabu::Solver do
         solver.add("b", test[1])
         solution = solver.solve!
         puts descrition+"\n #{solution}"
-        expect(solution["b"].to_f.round(8)).to eq(test[2]["result"].to_f.round(8))
-        expect(solution["a"].to_f.round(8)).to eq(test[2]["result"].to_f.round(8))
+        expect(solution["b"].to_f.round(5)).to eq(test[2]["result"].to_f.round(5))
+        expect(solution["a"].to_f.round(5)).to eq(test[2]["result"].to_f.round(5))
       end
     end
+  end
 
     def test_parsing(input, expected_binding = {})
       @logs = []
