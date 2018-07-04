@@ -2,7 +2,7 @@ module Hesabu
   module Types
     FloatLit = Struct.new(:float) do
       def eval
-        float.to_f
+        Hesabu::Types.as_bigdecimal(float)
       end
     end
   end

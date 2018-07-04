@@ -2,7 +2,7 @@ module Hesabu
   module Types
     IntLit = Struct.new(:int) do
       def eval
-        int.to_i
+        ::Hesabu::Types.as_bigdecimal(int)
       end
     end
   end

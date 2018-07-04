@@ -11,7 +11,7 @@ module Hesabu
                  elsif op == "*"
                    left.eval * right.eval
                  elsif op == "/"
-                   left.eval / right.eval.to_f
+                   left.eval / right.eval
                  elsif op == ">"
                    left.eval > right.eval
                  elsif op == "<"
@@ -22,6 +22,10 @@ module Hesabu
                    left.eval <= right.eval
                  elsif op == "=" || op == "=="
                    left.eval == right.eval
+                 elsif op == "!="
+                   left.eval != right.eval
+                 elsif op == "AND"
+                   left.eval && right.eval
                  else
                    raise "unsupported operand : #{operator} : #{left} #{operator} #{right}"
                  end
