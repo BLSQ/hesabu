@@ -7,15 +7,15 @@
 
 Hesabu : equation solver based on parslet.
 
-## sample usage 
+## sample usage
 ```ruby
     solver = Hesabu::Solver.new
     solver.add("c", "a + b")
     solver.add("a", "10")
     solver.add("b", "10 + a")
-    
+
     solution = solver.solve!
-    
+
     expect(solution).to eq("a" => 10, "b" => 20, "c" => 30)
 ```
 
@@ -36,6 +36,18 @@ Nb: Hesabu is swahili word for arithemtic.
 ## Alternatives
 
 * https://github.com/rubysolo/dentaku more complete, currently less performant.
+
+
+# Development
+
+## Running the tests
+
+```
+# only the fast
+bundle exec rspec --tag ~slow
+# all with integration test, expect around 30-40 seconds depending on your machine
+bundle exec rspec
+```
 
 ## deployment to rubygems.org
 

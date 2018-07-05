@@ -1,6 +1,6 @@
 require "json"
 
-RSpec.describe "Parsor and interpretor" do
+RSpec.describe "Parsor and interpretor", :slow do
   describe "solve big problems" do
     let(:solver) { Hesabu::Solver.new }
     let(:problem) { JSON.parse(File.read("spec/lib/fixtures/bigproblem.json")) }
