@@ -14,34 +14,10 @@ module Hesabu
     end
 
     def add(name, raw_expression)
-      expression = raw_expression
-      numeric = ::Hesabu::Types.as_numeric(raw_expression)
-
-      if numeric
-        @equations[name] = Equation.new(
-          name,
-          FakeEvaluable.new(::Hesabu::Types.as_bigdecimal(raw_expression)),
-          EMPTY_DEPENDENCIES,
-          raw_expression
-        )
+      if ::Hesabu::Types.as_numeric(raw_expression)
+        add_numeric(name, raw_expression)
       else
-        expression = raw_expression.gsub(/\r\n?/, "")
-        ast_tree = begin
-          @parser.parse(expression)
-        rescue Parslet::ParseFailed => e
-          raise ParseError, "failed to parse #{name} := #{expression} : #{e.message}"
-        end
-        var_identifiers = Set.new
-        interpretation = @interpreter.apply(
-          ast_tree,
-          doc:             @bindings,
-          var_identifiers: var_identifiers
-        )
-        if ENV["HESABU_DEBUG"]
-          puts expression
-          puts JSON.pretty_generate(ast_tree)
-        end
-        @equations[name] = Equation.new(name, interpretation, var_identifiers, raw_expression)
+        add_equation(name, raw_expression)
       end
     end
 
@@ -84,6 +60,35 @@ module Hesabu
     end
 
     private
+
+    def add_numeric(name, raw_expression)
+      @equations[name] = Equation.new(
+        name,
+        FakeEvaluable.new(::Hesabu::Types.as_bigdecimal(raw_expression)),
+        EMPTY_DEPENDENCIES,
+        raw_expression
+      )
+    end
+
+    def add_equation(name, raw_expression)
+      expression = raw_expression.gsub(/\r\n?/, "")
+      ast_tree = begin
+        @parser.parse(expression)
+      rescue Parslet::ParseFailed => e
+        raise ParseError, "failed to parse #{name} := #{expression} : #{e.message}"
+      end
+      var_identifiers = Set.new
+      interpretation = @interpreter.apply(
+        ast_tree,
+        doc:             @bindings,
+        var_identifiers: var_identifiers
+      )
+      if ENV["HESABU_DEBUG"]
+        puts expression
+        puts JSON.pretty_generate(ast_tree)
+      end
+      @equations[name] = Equation.new(name, interpretation, var_identifiers, raw_expression)
+    end
 
     def unbound_message(node)
       ref = first_reference(node)
