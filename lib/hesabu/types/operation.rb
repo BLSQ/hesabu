@@ -3,38 +3,39 @@ module Hesabu
     Operation = Struct.new(:left, :operator, :right) do
       def eval
         op = operator.str.strip
+        result(op, left.eval, right.eval)
+      end
 
-        leftval = left.respond_to?(:eval, false) ? left.eval : left
-        rightval = right.respond_to?(:eval, false) ? right.eval : right
-        # puts "Operation : #{leftval} #{op} #{rightval}"
-        result = if op == "+"
-                   leftval + rightval
-                 elsif op == "-"
-                   leftval - rightval
-                 elsif op == "*"
-                   leftval * rightval
-                 elsif op == "/"
-                   raise DivideByZeroError, "division by 0 : #{leftval}/0" if rightval == 0
-                   leftval / rightval
-                 elsif op == ">"
-                   leftval > rightval
-                 elsif op == "<"
-                   leftval < rightval
-                 elsif op == ">="
-                   leftval >= rightval
-                 elsif op == "<="
-                   leftval <= rightval
-                 elsif op == "=" || op == "=="
-                   leftval == rightval
-                 elsif op == "!="
-                   leftval != rightval
-                 elsif op == "AND"
-                   leftval && rightval
-                 else
-                   raise "unsupported operand : #{operator} : #{left} #{operator} #{right}"
-                 end
-        # puts "#{leftval} #{op}  #{right.eval} => #{result}"
-        result
+      private
+
+      def result(op, leftval, rightval)
+        case op
+        when "+"
+          leftval + rightval
+        when  "-"
+          leftval - rightval
+        when  "*"
+          leftval * rightval
+        when  "/"
+          raise DivideByZeroError, "division by 0 : #{leftval}/0" if rightval == 0
+          leftval / rightval
+        when  ">"
+          leftval > rightval
+        when  "<"
+          leftval < rightval
+        when  ">="
+          leftval >= rightval
+        when  "<="
+          leftval <= rightval
+        when  "=", "=="
+          leftval == rightval
+        when  "!="
+          leftval != rightval
+        when  "AND"
+          leftval && rightval
+        else
+          raise "unsupported operand : #{op} : #{left} #{operator} #{right}"
+        end
       end
     end
   end
