@@ -21,9 +21,5 @@ module Hesabu
 
     rule(integer: simple(:integer)) { Hesabu::Types::IntLit.new(integer) }
     rule(float: simple(:float)) { Hesabu::Types::FloatLit.new(float) }
-
-    rule(left: simple(:left)) do
-      left
-    end
   end
 end

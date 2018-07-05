@@ -19,7 +19,6 @@ RSpec.describe Hesabu::Solver do
         solver.add("a", test[0])
         solver.add("b", test[1])
         solution = solver.solve!
-        # puts descrition+"\n #{solution}"
         expect(solution["b"].to_f.round(5)).to eq(test[2]["result"].to_f.round(5))
         expect(solution["a"].to_f.round(5)).to eq(test[2]["result"].to_f.round(5))
       end

@@ -1,9 +1,7 @@
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.5
   Exclude:
     - db/schema.rb
-Rails:
-  Enabled: true
 Layout/AlignHash:
   # Alignment of entries using hash rocket as separator. Valid values are:
   #
@@ -52,9 +50,8 @@ Style/FormatStringToken:
   EnforcedStyle: template
 Metrics/LineLength:
   Exclude:
-    - 'spec/**/*.rb'  
+    - 'spec/**/*.rb'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*.rb'
 
-    

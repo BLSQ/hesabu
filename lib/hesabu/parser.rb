@@ -37,10 +37,16 @@ module Hesabu
     rule(:expression)         { iexpression | variable | pexpression }
     rule(:pexpression)        { lparen >> expression >> rparen }
 
-    rule(:variable)           { identifier.as(:variable) } # gets simplified into a value, an "identifier" does not
+    rule(:variable)           { identifier.as(:variable) }
     rule(:sum_op)             { match("[+-]") >> space? }
     rule(:mul_op)             { match("[*/]") >> space? }
-    rule(:comparison_op)      { (str("<=") | str(">=") | str("==") | str("!=") | str("<") | str("=") | str(">") | str("AND")) >> space? }
+    rule(:comparison_op)      do
+      (
+       str("<=") | str(">=") | str("==") |
+       str("!=") | str("<") | str("=") |
+       str(">") | str("AND")
+      ) >> space?
+    end
 
     rule(:atom) { string | pexpression | float | integer | fcall.as(:fcall) | variable }
 

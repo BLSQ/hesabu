@@ -113,7 +113,6 @@ RSpec.describe Hesabu::Solver do
       bindings["result"] = eval_result
       expected_binding["bb"] = 4
       log "-------"
-      # puts @logs.join("\n")
       expect(bindings).to eq(expected_binding)
     rescue Parslet::ParseFailed => e
       puts "#{input} vs #{expected_binding} =>  #{e.class} : #{e.message}"

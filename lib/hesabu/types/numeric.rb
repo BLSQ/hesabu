@@ -12,23 +12,23 @@ module Hesabu
     def self.as_numeric(value)
       if value.is_a?(::Numeric)
         return value.to_i if value.to_i == value
-          return value
+        return value
       end
       value = value.str if value.is_a?(::Parslet::Slice)
       if value.is_a?(::String)
         number = value[/\A-?\d*\.?\d+\z/]
-          if number
-            if number.include?(".")
-              return ::BigDecimal.new(number, MAXDECIMAL)
-            else
-              return number.to_i
-            end
+        if number
+          if number.include?(".")
+            return BigDecimal(number, MAXDECIMAL)
+          else
+            return number.to_i
           end
+        end
       end
     end
 
     def self.as_bigdecimal(number)
-      ::BigDecimal.new(number, MAXDECIMAL)
+      BigDecimal(number, MAXDECIMAL)
     end
   end
 end

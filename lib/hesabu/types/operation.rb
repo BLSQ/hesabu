@@ -17,7 +17,7 @@ module Hesabu
         when  "*"
           leftval * rightval
         when  "/"
-          raise DivideByZeroError, "division by 0 : #{leftval}/0" if rightval == 0
+          raise DivideByZeroError, "division by 0 : #{leftval}/0" if rightval.zero?
           leftval / rightval
         when  ">"
           leftval > rightval

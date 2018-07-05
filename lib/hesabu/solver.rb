@@ -37,9 +37,9 @@ module Hesabu
         hash[kv.first] = Hesabu::Types.as_numeric(kv.last) || kv.last
       end
     rescue StandardError => e
-      puts "Error during processing: #{$ERROR_INFO}"
-      puts "Error : #{e.class} #{e.message}"
-      puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+      log "Error during processing: #{$ERROR_INFO}"
+      log "Error : #{e.class} #{e.message}"
+      log "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
       raise e
     end
 
@@ -56,10 +56,14 @@ module Hesabu
     def tsort_each_child(node, &block)
       equation = @equations[node]
       raise UnboundVariableError, unbound_message(node) unless equation
-      equation&.dependencies.each(&block)
+      equation.dependencies.each(&block)
     end
 
     private
+
+    def log(message)
+      puts message
+    end
 
     def add_numeric(name, raw_expression)
       @equations[name] = Equation.new(
@@ -84,8 +88,8 @@ module Hesabu
         var_identifiers: var_identifiers
       )
       if ENV["HESABU_DEBUG"]
-        puts expression
-        puts JSON.pretty_generate(ast_tree)
+        log expression
+        log JSON.pretty_generate(ast_tree)
       end
       @equations[name] = Equation.new(name, interpretation, var_identifiers, raw_expression)
     end
