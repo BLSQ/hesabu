@@ -1,14 +1,12 @@
 module Hesabu
-
   class Interpreter < Parslet::Transform
-
     rule(plist: sequence(:arr)) { arr }
     rule(plist: "()") { [] }
-    rule( l:  simple(:left),
-          r: simple(:right),
-          o:    simple(:op)) do
+    rule(l: simple(:left),
+         r: simple(:right),
+         o: simple(:op)) do
       Hesabu::Types::Operation.new(left, op, right)
-      end
+    end
     rule(identifier: simple(:id)) { id.to_s }
     rule(variable: simple(:variable)) do |d|
       d[:var_identifiers]&.add(d[:variable])
@@ -24,9 +22,8 @@ module Hesabu
     rule(integer: simple(:integer)) { Hesabu::Types::IntLit.new(integer) }
     rule(float: simple(:float)) { Hesabu::Types::FloatLit.new(float) }
 
-    
-    rule(left: simple(:left)) { 
+    rule(left: simple(:left)) do
       left
-    }
+    end
   end
 end
