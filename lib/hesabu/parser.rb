@@ -34,7 +34,7 @@ module Hesabu
 
     # arithmetic
 
-    rule(:expression)         { iexpression| variable | pexpression }
+    rule(:expression)         { iexpression | variable | pexpression }
     rule(:pexpression)        { lparen >> expression >> rparen }
 
     rule(:variable)           { identifier.as(:variable) } # gets simplified into a value, an "identifier" does not
@@ -42,15 +42,14 @@ module Hesabu
     rule(:mul_op)             { match("[*/]") >> space? }
     rule(:comparison_op)      { (str("<=") | str(">=") | str("==") | str("!=") | str("<") | str("=") | str(">") | str("AND")) >> space? }
 
-    rule(:atom) {  string | pexpression | float | integer | fcall.as(:fcall) | variable }
+    rule(:atom) { string | pexpression | float | integer | fcall.as(:fcall) | variable }
 
-    rule(:iexpression) { 
-      infix_expression(atom, 
-        [mul_op, 2, :right], 
-        [sum_op, 1, :left],
-        [comparison_op, 1, :left]
-        ) 
-      }
+    rule(:iexpression) do
+      infix_expression(atom,
+                       [mul_op, 3, :left],
+                       [sum_op, 2, :left],
+                       [comparison_op, 1, :left])
+    end
 
     # lists
     rule(:varlist)    { expression >> (comma >> expression).repeat }
