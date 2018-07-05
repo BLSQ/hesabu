@@ -23,24 +23,13 @@ module Hesabu
 
     def solve!
       solving_order.each do |name|
-        equation = @equations[name]
-        raise "not evaluable #{equation.evaluable} #{equation}" unless equation.evaluable.respond_to?(:eval, false)
-        begin
-          @bindings[equation.name] = equation.evaluable.eval
-        rescue StandardError => e
-          raise CalculationError, "Failed to evaluate #{equation.name} due to #{e.message} in formula #{equation.raw_expression}"
-        end
+        evaluate_equation(@equations[name])
       end
       solution = @bindings.dup
       @bindings.clear
-      solution.each_with_object({}) do |kv, hash|
-        hash[kv.first] = Hesabu::Types.as_numeric(kv.last) || kv.last
-      end
+      to_numerics(solution)
     rescue StandardError => e
-      log "Error during processing: #{$ERROR_INFO}"
-      log "Error : #{e.class} #{e.message}"
-      log "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
-      raise e
+      log_and_raise(e)
     end
 
     def solving_order
@@ -60,6 +49,28 @@ module Hesabu
     end
 
     private
+
+    def to_numerics(solution)
+      solution.each_with_object({}) do |kv, hash|
+        hash[kv.first] = Hesabu::Types.as_numeric(kv.last) || kv.last
+      end
+    end
+
+    def log_and_raise(e)
+      log "Error during processing: #{$ERROR_INFO}"
+      log "Error : #{e.class} #{e.message}"
+      log "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+      raise e
+    end
+
+    def evaluate_equation(equation)
+      raise "not evaluable #{equation.evaluable} #{equation}" unless equation.evaluable.respond_to?(:eval, false)
+      begin
+        @bindings[equation.name] = equation.evaluable.eval
+      rescue StandardError => e
+        raise CalculationError, "Failed to evaluate #{equation.name} due to #{e.message} in formula #{equation.raw_expression}"
+      end
+    end
 
     def log(message)
       puts message
