@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hesabu (0.1.1)
+    hesabu (0.1.2)
       parslet
 
 GEM

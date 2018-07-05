@@ -1,6 +1,6 @@
 require "json"
 
-RSpec.describe "Parsor and interpretor" do
+RSpec.describe "Parsor and interpretor", :slow do
   describe "solve big problems" do
     let(:solver) { Hesabu::Solver.new }
     let(:problem) { JSON.parse(File.read("spec/lib/fixtures/bigproblem.json")) }
@@ -15,8 +15,10 @@ RSpec.describe "Parsor and interpretor" do
       solution = benchmark("solving") { solver.solve! }
 
       benchmark_log
+      float_solution = solution.each_with_object({}) { |kv, hash| hash[kv.first] = kv.last.to_f.round(10) }
+      float_expected_solution = expected_solution.each_with_object({}) { |kv, hash| hash[kv.first] = kv.last.to_f.round(10) }
 
-      expect(solution).to eq(expected_solution)
+      expect(float_solution).to eq(float_expected_solution)
     end
 
     # rubocop:disable Rails/TimeZone
