@@ -28,16 +28,37 @@ RSpec.describe Hesabu::Solver do
     )
   end
 
-  it "fails when not parsable" do
-    expect { solver.add("a", "a b") }.to raise_error(Hesabu::ParseError)
+  describe "Hesabu::ArgumentError" do
+    it "fails when nil" do
+      expect { solver.add("c", nil) }.to raise_error(
+        Hesabu::ArgumentError,
+        "name or expression can't be nil : 'c', ''"
+      )
+    end
+
+    it "fails when nil" do
+      expect { solver.add(nil, "1") }.to raise_error(
+        Hesabu::ArgumentError,
+        "name or expression can't be nil : '', '1'"
+      )
+    end
   end
-  it "fails when not parsable : bad number format" do
-    expect { solver.add("a", "545.5454.54") }.to raise_error(Hesabu::ParseError)
-  end
-  it "fails when not parsable : missing parentheses" do
-    expect { solver.add("a", "if(1>2,3,4") }.to raise_error(Hesabu::ParseError)
-  end
-  it "fails when not parsable : missing quote" do
-    expect { solver.add("a", "'sampl")  }.to raise_error(Hesabu::ParseError)
+
+  describe "Hesabu::ParseError" do
+    it "fails when not parsable" do
+      expect { solver.add("a", "a b") }.to raise_error(Hesabu::ParseError)
+    end
+    it "fails when not parsable" do
+      expect { solver.add("a", "") }.to raise_error(Hesabu::ParseError)
+    end
+    it "fails when not parsable : bad number format" do
+      expect { solver.add("a", "545.5454.54") }.to raise_error(Hesabu::ParseError)
+    end
+    it "fails when not parsable : missing parentheses" do
+      expect { solver.add("a", "if(1>2,3,4") }.to raise_error(Hesabu::ParseError)
+    end
+    it "fails when not parsable : missing quote" do
+      expect { solver.add("a", "'sampl")  }.to raise_error(Hesabu::ParseError)
+    end
   end
 end

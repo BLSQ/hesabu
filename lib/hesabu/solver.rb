@@ -14,6 +14,10 @@ module Hesabu
     end
 
     def add(name, raw_expression)
+      if raw_expression.nil? || name.nil?
+        raise Hesabu::ArgumentError, "name or expression can't be nil : '#{name}', '#{raw_expression}'"
+      end
+
       if ::Hesabu::Types.as_numeric(raw_expression)
         add_numeric(name, raw_expression)
       else
