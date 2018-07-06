@@ -61,10 +61,14 @@ module Hesabu
     end
 
     def log_and_raise(e)
+      log_error(e)
+      raise e
+    end
+
+    def log_error(e)
       log "Error during processing: #{$ERROR_INFO}"
       log "Error : #{e.class} #{e.message}"
       log "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
-      raise e
     end
 
     def evaluate_equation(equation)
@@ -94,6 +98,8 @@ module Hesabu
       ast_tree = begin
         @parser.parse(expression)
       rescue Parslet::ParseFailed => e
+        log(raw_expression)
+        log_error(e)
         raise ParseError, "failed to parse #{name} := #{expression} : #{e.message}"
       end
       var_identifiers = Set.new

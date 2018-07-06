@@ -29,7 +29,8 @@ module Hesabu
     end
 
     rule(:float) do
-      cts((str("-").maybe >> digit.repeat(1) >> str(".") >> digit.repeat(1)).as(:float))
+      cts((str("-").maybe >> digit.repeat(1) >> str(".") >> digit.repeat(1)).as(:float)) |
+      cts((str(".") >> digit.repeat(1)).as(:float))
     end
 
     # arithmetic
