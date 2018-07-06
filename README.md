@@ -62,10 +62,7 @@ chmod 0600 ~/.gem/credentials
 
 
 ```
-gem bump
-gem build hesabu.gemspec
-gem push hesabu-x.x.x.gem
-
+gem bump --tag --release
 ```
 
 
