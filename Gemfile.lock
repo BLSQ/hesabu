@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    hesabu (0.1.4)
-      parslet
+    hesabu (0.1.5)
 
 GEM
   remote: https://rubygems.org/
@@ -34,7 +33,6 @@ GEM
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
-    parslet (1.8.2)
     path_expander (1.0.2)
     powerpack (0.1.1)
     pronto (0.9.5)
