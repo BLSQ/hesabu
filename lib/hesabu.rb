@@ -1,5 +1,5 @@
 require "hesabu/version"
-require "parslet"
+
 require_relative "./hesabu/errors"
 require_relative "./hesabu/types/numeric"
 

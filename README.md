@@ -25,13 +25,7 @@ The expressions can be more complex (excel like), see the supported functions [h
 
 Currently the solver is case sensitive (except function names)
 
-Nb: Hesabu is swahili word for arithemtic.
-
-## Technical background
-
-* https://tomassetti.me/guide-parsing-algorithms-terminology/
-* https://github.com/PhilippeSigaud/Pegged/wiki/PEG-Basics
-* https://github.com/kschiess/parslet
+Nb: Hesabu is swahili word for arithmetic.
 
 ## Alternatives
 
