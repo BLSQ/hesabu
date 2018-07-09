@@ -1,17 +1,15 @@
 
 module Hesabu
   class Error < StandardError
+    attr_accessor :errors
+    def iniatialize(message)
+      super(message)
+      @errors = errors
+    end
   end
   class ArgumentError < Error
-  end
-  class ParseError < Error
-  end
-  class CalculationError < Error
-  end
-  class DivideByZeroError < Error
-  end
-  class CyclicError < Error
-  end
-  class UnboundVariableError < Error
+    def iniatialize(message)
+      super(message)
+    end
   end
 end
