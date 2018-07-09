@@ -1,7 +1,5 @@
 RSpec.describe Hesabu::Solver do
   let(:solver) { described_class.new }
-  let(:parser) { Hesabu::Parser.new }
-  let(:interpreter) { Hesabu::Interpreter.new }
 
   it "solves in correct order" do
     solver.add("c", "a + b")

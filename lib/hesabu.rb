@@ -7,4 +7,6 @@ require_relative "./hesabu/equation_cleaner"
 require_relative "./hesabu/solver"
 
 module Hesabu
+  HESABUCLI = File.expand_path("../bin/hesabucli", File.dirname(__FILE__))
+  puts "************** HESABU cli location : " + HESABUCLI
 end

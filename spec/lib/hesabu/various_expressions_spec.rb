@@ -84,6 +84,7 @@ RSpec.describe Hesabu::Solver do
       ["score_Table(3, 0,2,30 , 2,4,50, 4,6, 70 )", "result" => 50],
       ["score_Table(4, 0,2,30 , 2,4,50, 4,6, 70 )", "result" => 70],
       ["score_Table(5, 0,2,30 , 2,4,50, 4,6, 70 )", "result" => 70],
+      ["score_Table(8, 0,2,30 , 2,4,50, 4,6, 70, 200)", "result" => 200 ],
       ["access( 1,2,3,4, 0)", "result" => 1],
       ["access( 1,2,3,4, 3)", "result" => 4],
       ["if('aa' == 'bb', 1, 2)", "result" => 2],
