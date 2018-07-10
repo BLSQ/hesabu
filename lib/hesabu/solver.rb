@@ -14,6 +14,7 @@ module Hesabu
     end
 
     def solve!
+      return {} if @equations.empty?
       result = nil
       IO.popen(HESABUCLI, mode = "r+") do |io|
         io.write @equations.to_json

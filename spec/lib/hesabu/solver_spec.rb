@@ -74,4 +74,9 @@ RSpec.describe Hesabu::Solver do
     expect(solution["b"]).to eq(1)
     expect(solution["c"]).to eq(2)
   end
+
+  it "should deal with empty equations set" do
+    solution = solver.solve!
+    expect(solution).to eq({})
+  end
 end

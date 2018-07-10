@@ -14,7 +14,6 @@ module Hesabu
         return value.to_i if value.to_i == value
         return value
       end
-      value = value.str if value.is_a?(::Parslet::Slice)
       if value.is_a?(::String)
         number = value[/\A-?\d*\.?\d+\z/]
         if number
