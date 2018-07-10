@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hesabu (0.1.6)
+    hesabu (0.1.7)
 
 GEM
   remote: https://rubygems.org/

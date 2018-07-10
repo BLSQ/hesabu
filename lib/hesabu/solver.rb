@@ -30,7 +30,6 @@ module Hesabu
     end
 
     def handle_error(solution)
-      puts
       error = solution["errors"].first
       message = "In equation #{error['source']} " + error["message"] + " #{error['source']} := #{error['expression']}"
 
