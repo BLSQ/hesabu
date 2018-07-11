@@ -5,10 +5,10 @@
 
 # Hesabu
 
-Hesabu : equation solver based on parslet.
+Hesabu : equations solver relies on https://github.com/BLSQ/go-hesabu to solve equations
 
 Hesabu is swahili word for arithmetic.
-relies on https://github.com/BLSQ/go-hesabu to solve equations
+
 
 ## sample usage
 ```ruby
