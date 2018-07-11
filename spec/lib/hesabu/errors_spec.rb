@@ -42,8 +42,6 @@ RSpec.describe Hesabu::Solver do
         "name or expression can't be nil : '', '1'"
       )
     end
-
-
   end
 
   describe "Hesabu::Error" do
