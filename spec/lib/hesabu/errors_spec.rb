@@ -42,9 +42,18 @@ RSpec.describe Hesabu::Solver do
         "name or expression can't be nil : '', '1'"
       )
     end
+
+
   end
 
   describe "Hesabu::Error" do
+
+    it "fails when nil" do
+      expect { solver.add("sample_cast_error", "if(1,2,3)"); solver.solve! }.to raise_error(
+        Hesabu::Error,
+        "In equation sample_cast_error Evaluation failed interface conversion: interface {} is float64, not bool <nil> sample_cast_error := if(1,2,3)"
+      )
+    end
     it "fails when not parsable" do
       expect { solver.add("a", "a b"); solver.solve! }.to raise_error(
         Hesabu::Error,
