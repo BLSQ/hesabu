@@ -7,6 +7,9 @@
 
 Hesabu : equation solver based on parslet.
 
+Hesabu is swahili word for arithmetic.
+relies on https://github.com/BLSQ/go-hesabu to solve equations
+
 ## sample usage
 ```ruby
     solver = Hesabu::Solver.new
@@ -21,16 +24,17 @@ Hesabu : equation solver based on parslet.
 
 The solver will deduce the correct order and find the values of a,b and c.
 
-The expressions can be more complex (excel like), see the supported functions [here](https://github.com/BLSQ/hesabu/blob/master/lib/hesabu/types/fun_call.rb#L87)
+The expressions can be more complex (excel like), see the supported functions [here](https://github.com/BLSQ/hesabu/blob/master/spec/lib/hesabu/various_expressions_spec.rb#L12)
 
-Currently the solver is case sensitive (except function names)
+When parsing or solving, things can go wrong, here are various [cases](https://github.com/BLSQ/hesabu/blob/master/spec/lib/hesabu/errors_spec.rb)
 
-Nb: Hesabu is swahili word for arithmetic.
+Currently the solver : 
+ - is case sensitive.
+ - and fast (32000 equations in 3 seconds)
 
 ## Alternatives
 
 * https://github.com/rubysolo/dentaku more complete, currently less performant.
-
 
 # Development
 
