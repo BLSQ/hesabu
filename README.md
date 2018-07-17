@@ -47,6 +47,15 @@ bundle exec rspec --tag ~slow
 bundle exec rspec
 ```
 
+## profiling
+
+```
+RUBY_PROF_MEASURE_MODE=wall PROF=true bundle exec rspec ./spec/lib/hesabu/integration_spec.rb
+RUBY_PROF_MEASURE_MODE=allocations PROF=true bundle exec rspec ./spec/lib/hesabu/integration_spec.rb
+```
+then look at the numbers
+launch the complete test suite and verify timings before and after
+
 ## deployment to rubygems.org
 
 one time setup

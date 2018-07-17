@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pronto-rubocop"
   spec.add_development_dependency "pronto-simplecov"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "ruby-prof"
 end
