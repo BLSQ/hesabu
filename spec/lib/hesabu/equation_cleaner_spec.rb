@@ -12,6 +12,16 @@ RSpec.describe Hesabu::EquationCleaner do
     end
   end
 
+  describe "boolean OR" do
+    it "replace OR by || " do
+      expect(subject.clean("sample OR basic")).to eq("sample || basic")
+    end
+
+    it "keep && uncleaned " do
+      expect(subject.clean("sample || basic")).to eq("sample || basic")
+    end
+  end
+
   describe "= replace by ==" do
     ["a<=basic", "a>=basic", "a==basic", "a!=basic",
      "a <=basic", "a >=basic", "a ==basic", "a!= basic",

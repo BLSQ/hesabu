@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hesabu (0.1.9)
+    hesabu (0.1.12)
 
 GEM
   remote: https://rubygems.org/
@@ -111,4 +111,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.16.1
+   1.16.4
