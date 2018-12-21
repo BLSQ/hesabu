@@ -10,7 +10,7 @@ module Hesabu
       if raw_expression.nil? || name.nil?
         raise Hesabu::ArgumentError, "name or expression can't be nil : '#{name}', '#{raw_expression}'"
       end
-      @equations[name] = EquationCleaner.clean(raw_expression.to_s)
+      @equations[name] = raw_expression.to_s
     end
 
     def solve!
