@@ -11,7 +11,6 @@ module Hesabu
   #      Hesabu::MultiJSON::generate(object) # Generate JSON
   #      Hesabu::MultiJSON::parse(string) # Parse JSON
   module MultiJSON
-
     # Takes a ruby object and transforms it to JSON.
     def self.generate(object)
       _fast_to_json(object)
