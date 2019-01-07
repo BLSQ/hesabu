@@ -108,7 +108,13 @@ RSpec.describe Hesabu::Solver do
       solution = solver.solve!
       solution.delete("bb")
       solution.delete("cc")
-      expect(solution).to eq(expected_binding)
+
+      case solution["result"]
+      when Float, Integer, BigDecimal
+        expect(solution["result"]).to be_within(0.000001).of(expected_binding["result"])
+      else
+        expect(solution["result"]).to eq(expected_binding["result"])
+      end
     rescue StandardError => e
       puts "#{input} vs #{expected_binding} =>  #{e.class} : #{e.message}"
       raise e
