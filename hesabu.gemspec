@@ -1,4 +1,3 @@
-# coding: utf-8
 
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
@@ -34,6 +33,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pronto-flay"
   spec.add_development_dependency "pronto-rubocop"
   spec.add_development_dependency "pronto-simplecov"
-  spec.add_development_dependency "simplecov"
   spec.add_development_dependency "ruby-prof"
+  spec.add_development_dependency "simplecov"
 end
