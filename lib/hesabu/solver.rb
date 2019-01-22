@@ -1,5 +1,3 @@
-
-
 module Hesabu
   class Solver
     def initialize
@@ -10,18 +8,18 @@ module Hesabu
       if raw_expression.nil? || name.nil?
         raise Hesabu::ArgumentError, "name or expression can't be nil : '#{name}', '#{raw_expression}'"
       end
-      @equations[name] = EquationCleaner.clean(raw_expression.to_s)
+      @equations[name] = raw_expression.to_s
     end
 
     def solve!
       return {} if @equations.empty?
       result = nil
       IO.popen(HESABUCLI, mode = "r+") do |io|
-        io.write @equations.to_json
+        io.write Hesabu::MultiJSON.generate(@equations)
         io.close_write # let the process know you've given it all the data
         result = io.read
       end
-      solution = JSON.parse(result)
+      solution = Hesabu::MultiJSON.parse(result)
       exit_status = $CHILD_STATUS.exitstatus
 
       log_everything(exit_status, result) if ENV["HESABU_DEBUG"] || exit_status != 0

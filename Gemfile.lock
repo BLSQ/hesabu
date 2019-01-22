@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    hesabu (0.1.12)
+    hesabu (0.1.13)
 
 GEM
   remote: https://rubygems.org/
@@ -30,6 +30,7 @@ GEM
     multipart-post (2.0.0)
     octokit (4.8.0)
       sawyer (~> 0.8.0, >= 0.5.3)
+    oj (3.7.4)
     parallel (1.12.1)
     parser (2.5.1.0)
       ast (~> 2.4.0)
@@ -101,6 +102,7 @@ DEPENDENCIES
   bundler (~> 1.16)
   byebug
   hesabu!
+  oj
   pronto
   pronto-flay
   pronto-rubocop
@@ -111,4 +113,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.16.4
+   1.17.1

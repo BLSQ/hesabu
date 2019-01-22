@@ -49,7 +49,7 @@ RSpec.describe Hesabu::Solver do
     it "fails when nil" do
       expect { solver.add("sample_cast_error", "if(1,2,3)"); solver.solve! }.to raise_error(
         Hesabu::Error,
-        "In equation sample_cast_error Evaluation failed interface conversion: interface {} is float64, not bool <nil> sample_cast_error := if(1,2,3)"
+        "In equation sample_cast_error Expected '1' to be a boolean expression. sample_cast_error := if(1,2,3)"
       )
     end
     it "fails when not parsable" do
