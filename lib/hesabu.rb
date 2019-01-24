@@ -12,7 +12,6 @@ module Hesabu
   case RUBY_PLATFORM
   when /darwin/
     HESABUCLI = File.expand_path("../bin/hesabucli-mac", File.dirname(__FILE__))
-    :mac
   when /cygwin|mswin|mingw|bccwin|wince|emx/
     raise UnsupportedPlatform.new("Windows is not (yet) supported")
   else
