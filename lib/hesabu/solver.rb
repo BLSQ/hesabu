@@ -22,7 +22,7 @@ module Hesabu
       solution = Hesabu::MultiJSON.parse(result)
       exit_status = $CHILD_STATUS.exitstatus
 
-      log_everything(exit_status, result) if ENV["HESABU_DEBUG"] || exit_status != 0
+      log_everything(exit_status, result) if ENV["HESABU_DEBUG"]
       handle_error(solution) if exit_status != 0
       solution
     end

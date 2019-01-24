@@ -58,7 +58,6 @@ METHOD
     def self.define_fast_json(receiver, name)
       cl = caller_locations(1..1).first
       method_body = public_send("#{name}_method")
-      warn "Defining #{receiver}._fast_#{name} as #{method_body.inspect}"
       receiver.instance_eval method_body, cl.absolute_path, cl.lineno
     end
   end
