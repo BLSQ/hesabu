@@ -90,7 +90,11 @@ RSpec.describe Hesabu::Solver do
       ["access( 1,2,3,4, 0)", "result" => 1],
       ["ACCESS( 1,2,3,4, 3)", "result" => 4],
       ["if('aa' == 'bb', 1, 2)", "result" => 2],
-      ["if('aa' == 'aa', 1, 2)", "result" => 1]
+      ["if('aa' == 'aa', 1, 2)", "result" => 1],
+      ["stdevp(array(1,2,3,4))", "result" => 1.118033988749895],
+      ["stdevp(1,2,3,4)", "result" => 1.118033988749895],
+      ["sqrt(4.0)", "result" => 2.0]
+
     ].freeze
 
     TESTS.each do |test|
