@@ -105,7 +105,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
+  bundler (~> 2.0)
   byebug
   hesabu!
   oj
@@ -119,4 +119,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.17.1
+   2.1.4
