@@ -99,8 +99,8 @@ RSpec.describe Hesabu::Solver do
       ["if('aa' == 'aa', 1, 2)", "result" => 1],
       ["stdevp(array(1,2,3,4))", "result" => 1.118033988749895],
       ["stdevp(1,2,3,4)", "result" => 1.118033988749895],
-      ["sqrt(4.0)", "result" => 2.0]
-
+      ["sqrt(4.0)", "result" => 2.0],
+      ["cal_days_in_month(2020,2)", "result"=> 29]
     ].freeze
 
     TESTS.each do |test|
