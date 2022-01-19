@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# script/setup: Installs cmake on ubuntu because it's needed by the 'rugged' gem (bundle install will fail without it)
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+[ -z "$DEBUG" ] || set -x
+
+echo " -> Install cmake"
+
+sudo apt-get update -y
+sudo apt-get install cmake -y

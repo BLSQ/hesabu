@@ -1,0 +1,48 @@
+#!/bin/sh
+
+# script/cibuild: configures code climate and runs tests
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+[ -z "$DEBUG" ] || set -x
+
+echo " -> [cibuild] Running tests at..."
+date "+%H:%M:%S"
+
+if [ -f "./cc-test-reporter" ]; then
+    echo "==> Using cached test reporter"
+    chmod +x ./cc-test-reporter
+else
+    echo "==> Fetching test reporter"
+    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    chmod +x ./cc-test-reporter
+fi
+./cc-test-reporter before-build
+
+# run tests
+script/test
+status=$?
+
+if [ -f "./cc-test-reporter" ]; then
+  # https://docs.github.com/en/actions/reference/environment-variables
+  export GIT_COMMIT_SHA="${GITHUB_SHA}"
+  if [ -z "${GITHUB_HEAD_REF+x}" ]; then
+    if [ -z "${GITHUB_REF+x}"]; then
+      echo "Don't know the branch here"
+    else
+      # Strip away the refs/heads/
+      export GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+    fi
+  else
+    export GIT_BRANCH="${GITHUB_HEAD_REF}"
+  fi
+
+  echo "${CC_TEST_REPORTER_ID}"
+  ./cc-test-reporter after-build --coverage-input-type simplecov --exit-code $status
+fi
+
+exit $status
+# echo " -> Shellscripts"
+# shellcheck bin/**/*.sh script/cibuild script/test
