@@ -11,5 +11,4 @@ cd "$(dirname "$0")/.."
 echo " -> Install cmake"
 
 sudo apt-get update -y
-sudo apt-get update
 sudo apt-get install cmake -y
