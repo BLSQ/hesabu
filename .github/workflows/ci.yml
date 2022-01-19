@@ -1,0 +1,28 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install gem dependency cmake # the 'rugged' gem depends on cmake, bundle install fails without it
+      run: | 
+        script/setup
+    - name: Set up Ruby (uses .ruby-version)
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Cache clode climate reporter
+      uses: actions/cache@v2
+      with:
+        path: "cc-test-reporter"
+        key: cc-${{ runner.os }}-${{ hashFiles('./cc-test-reporter') }}
+    - name: Run a one-line script
+      run: |
+        script/cibuild
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
