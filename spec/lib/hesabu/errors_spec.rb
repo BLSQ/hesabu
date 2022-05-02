@@ -24,7 +24,7 @@ RSpec.describe Hesabu::Solver do
     solver.add("c", "1")
     expect { solver.solve! }.to raise_error(
       Hesabu::Error,
-      'In equation general cycle between equations general := general'
+      'In equation general cycle between equations : Found cycle at node: a general := general'
     )
   end
 
