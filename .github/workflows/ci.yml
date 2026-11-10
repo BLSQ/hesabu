@@ -21,13 +21,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Cache clode climate reporter
-      uses: actions/cache@v4
-      with:
-        path: "cc-test-reporter"
-        key: cc-${{ runner.os }}-${{ hashFiles('./cc-test-reporter') }}
-    - name: Run a one-line script
-      run: |
-        script/cibuild
-      env:
-        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - name: Run tests
+      run: script/cibuild
