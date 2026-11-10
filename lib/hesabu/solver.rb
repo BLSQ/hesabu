@@ -1,3 +1,5 @@
+require "English"
+
 module Hesabu
   class Solver
     def initialize
