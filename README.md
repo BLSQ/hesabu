@@ -7,6 +7,15 @@
 
 Hesabu : equations solver relies on https://github.com/BLSQ/go-hesabu to solve equations
 
+## Updating hesabucli
+
+`bin/hesabucli` (linux, static) and `bin/hesabucli-mac` are the binaries of a
+[go-hesabu release](https://github.com/BLSQ/go-hesabu/releases), installed with their checksums verified:
+
+```
+script/update-hesabucli v0.1.0
+```
+
 Hesabu is swahili word for arithmetic.
 
 

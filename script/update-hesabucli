@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# script/update-hesabucli: replaces bin/hesabucli (linux) and bin/hesabucli-mac with
+#                          the binaries of a go-hesabu github release, checksums verified.
+#
+#   script/update-hesabucli v0.1.0
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+tag="$1"
+if [ -z "$tag" ]; then
+    echo "usage: script/update-hesabucli <go-hesabu release tag, eg v0.1.0>"
+    echo "releases: https://github.com/BLSQ/go-hesabu/releases"
+    exit 1
+fi
+
+url="https://github.com/BLSQ/go-hesabu/releases/download/${tag}"
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+echo " -> Downloading go-hesabu ${tag}"
+for file in hesabucli hesabucli-mac checksums.txt; do
+    curl -fsSL -o "${tmp}/${file}" "${url}/${file}"
+done
+
+echo " -> Verifying checksums"
+if command -v sha256sum >/dev/null 2>&1; then
+    (cd "$tmp" && sha256sum -c checksums.txt)
+else # macos
+    (cd "$tmp" && shasum -a 256 -c checksums.txt)
+fi
+
+install -m 755 "${tmp}/hesabucli" bin/hesabucli
+install -m 755 "${tmp}/hesabucli-mac" bin/hesabucli-mac
+
+echo " -> Installed: $(bin/hesabucli -v 2>/dev/null || echo "bin/hesabucli ${tag} (not runnable here)")"

@@ -32,7 +32,8 @@ module Hesabu
                require "oj"
                %(::Oj.dump(object, mode: :compat, time_format: :ruby, use_to_json: true))
              rescue LoadError
-               %(JSON.fast_generate(object, create_additions: false, quirks_mode: true))
+               require "json"
+               %(JSON.generate(object))
              end
       <<~METHOD
         def _fast_to_json(object)
@@ -46,7 +47,8 @@ METHOD
                require "oj"
                %(::Oj.load(string, mode: :compat, time_format: :ruby, use_to_json: true))
              rescue LoadError
-               %(JSON.parse(string, create_additions: false))
+               require "json"
+               %(JSON.parse(string))
              end
       <<~METHOD
         def _fast_from_json(string)
