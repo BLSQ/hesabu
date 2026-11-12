@@ -12,10 +12,7 @@ jobs:
       matrix:
         ruby: ["3.4", "4.0"]
     steps:
-    - uses: actions/checkout@v4
-    - name: Install gem dependency cmake # the 'rugged' gem depends on cmake, bundle install fails without it
-      run: | 
-        script/setup
+    - uses: actions/checkout@v7
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
